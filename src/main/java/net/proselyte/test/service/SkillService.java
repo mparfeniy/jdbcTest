@@ -17,7 +17,7 @@ import java.util.TreeSet;
 public class SkillService {
     SkillRepository skillRepository = new JdbcSkillRepositoryImpl();
 
-    void save(Skill skill){
+    public void save(Skill skill){
         this.skillRepository.save(skill);
     }
 
@@ -32,6 +32,5 @@ public class SkillService {
     public void delete(Long id) {
         this.skillRepository.delete(id);
     }
-
 
 }

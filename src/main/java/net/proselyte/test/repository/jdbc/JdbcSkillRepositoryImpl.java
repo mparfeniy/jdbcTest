@@ -1,11 +1,13 @@
 package net.proselyte.test.repository.jdbc;
 
-import net.proselyte.test.model.Developer;
 import net.proselyte.test.model.Skill;
 import net.proselyte.test.repository.SkillRepository;
 import net.proselyte.test.util.ConnectionUtil;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
