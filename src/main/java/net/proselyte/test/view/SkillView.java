@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class SkillView {
 
-        SkillService skillService;
+        private SkillService skillService;
 
         public void useService(){
 

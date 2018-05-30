@@ -9,8 +9,8 @@ import java.sql.SQLException;
 
 public class DeveloperView {
 
-    DeveloperService developerService;
-    JdbcSkillRepositoryImpl jdbcSkillRepository;
+    private DeveloperService developerService;
+    private JdbcSkillRepositoryImpl jdbcSkillRepository;
 
     public void useService(){
 

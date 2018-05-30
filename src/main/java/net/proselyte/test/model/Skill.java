@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class Skill extends NamedEntity {
 
-    String name;
+    private String name;
 
     @Override
     public String toString() {

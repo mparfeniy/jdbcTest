@@ -15,7 +15,7 @@ import java.util.TreeSet;
  *
  */
 public class SkillService {
-    SkillRepository skillRepository = new JdbcSkillRepositoryImpl();
+    private SkillRepository skillRepository = new JdbcSkillRepositoryImpl();
 
     public void save(Skill skill){
         this.skillRepository.save(skill);

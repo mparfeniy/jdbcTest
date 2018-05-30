@@ -15,7 +15,7 @@ import java.util.Properties;
  */
 public class ConnectionUtil {
 
-    FileInputStream fis;
+    private FileInputStream fis;
 
     public Connection getConnection(){
 
