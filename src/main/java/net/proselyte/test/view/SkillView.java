@@ -7,9 +7,12 @@ import java.sql.SQLException;
 
 public class SkillView {
 
-        SkillService skillService = new SkillService();
+        SkillService skillService;
 
         public void useService(){
+
+            skillService = new SkillService();
+
             try {
                 skillService.save(new Skill(1L, "Vasya"));
                 skillService.getById(2L);

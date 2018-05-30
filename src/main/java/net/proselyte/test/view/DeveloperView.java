@@ -9,10 +9,13 @@ import java.sql.SQLException;
 
 public class DeveloperView {
 
+    DeveloperService developerService;
+    JdbcSkillRepositoryImpl jdbcSkillRepository;
+
     public void useService(){
 
-        DeveloperService developerService = new DeveloperService();
-        JdbcSkillRepositoryImpl jdbcSkillRepository = new JdbcSkillRepositoryImpl();
+        developerService = new DeveloperService();
+        jdbcSkillRepository = new JdbcSkillRepositoryImpl();
 
         try {
             developerService.save(new Developer(1L, "Vitya", jdbcSkillRepository.getList(1L)));
