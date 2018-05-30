@@ -47,7 +47,7 @@ public class JdbcDeveloperRepositoryImpl implements DeveloperRepository {
         return null;
     }
 
-    public Collection<Developer> getAll() throws SQLException {
+    public Collection<Developer> getAll() {
         Set<Developer> developers = new TreeSet<>();
         try {
             Statement stmt = connection.createStatement();

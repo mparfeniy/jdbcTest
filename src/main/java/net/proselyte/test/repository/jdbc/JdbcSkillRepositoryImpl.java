@@ -56,7 +56,7 @@ public class JdbcSkillRepositoryImpl implements SkillRepository {
         return null;
     }
 
-    public Collection<Skill> getAll() throws SQLException {
+    public Collection<Skill> getAll() {
         Set<Skill> skills = new TreeSet<>();
         try {
             Statement stmt = connection.createStatement();
