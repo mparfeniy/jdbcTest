@@ -23,15 +23,13 @@ public class ConnectionUtil {
             fis = new FileInputStream("src/main/resources/application.properties");
             Properties properties = new Properties();
             properties.load(fis);
+            String driver = properties.getProperty("driver");
             String url = properties.getProperty("database.url");
-            String name = properties.getProperty("database.username");
-            String password = properties.getProperty("database.pass");
-            return DriverManager.getConnection(url, name, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+//            String name = properties.getProperty("database.username");
+//            String password = properties.getProperty("database.pass");
+            Class.forName(driver);
+            return DriverManager.getConnection(url);
+        } catch (SQLException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
