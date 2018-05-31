@@ -19,8 +19,8 @@ public class DeveloperView {
 
         try {
             developerService.save(new Developer(1L, "Vitya", jdbcSkillRepository.getList(1L)));
-            developerService.getAll();
-            developerService.getById(3L);
+            System.out.println(developerService.getAll());
+            System.out.println(developerService.getById(3L));
             developerService.delete(1L);
         } catch (SQLException e) {
             e.printStackTrace();

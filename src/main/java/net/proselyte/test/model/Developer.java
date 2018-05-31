@@ -49,11 +49,10 @@ public class Developer extends BaseEntity implements Comparable{
 
     @Override
     public String toString() {
-        return "Developer{" +
-                "id=" + id +
-                "name='" + name + '\'' +
-                ", skills=" + skills +
-                '}';
+        return  "\tid = " + id +
+                ", name = " + name +
+                ", skills = " + skills +
+                '\n';
     }
 
     @Override

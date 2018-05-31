@@ -15,8 +15,8 @@ public class SkillView {
 
             try {
                 skillService.save(new Skill(1L, "C#"));
-                skillService.getById(2L);
-                skillService.getAll();
+                System.out.println(skillService.getById(2L));
+                System.out.println(skillService.getAll());
                 skillService.delete(1L);
             } catch (SQLException e) {
                 e.printStackTrace();

@@ -13,9 +13,8 @@ public class Skill extends NamedEntity implements Comparable {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Skill{");
-        sb.append("name='").append(name).append('\'');
-        sb.append('}');
+        final StringBuilder sb = new StringBuilder("\tid: ");
+        sb.append(id).append(", name='").append(name).append('\n');
         return sb.toString();
     }
 
