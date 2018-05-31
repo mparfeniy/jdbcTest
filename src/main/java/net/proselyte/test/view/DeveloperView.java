@@ -1,7 +1,6 @@
 package net.proselyte.test.view;
 
 import net.proselyte.test.model.Developer;
-import net.proselyte.test.repository.DeveloperRepository;
 import net.proselyte.test.repository.jdbc.JdbcSkillRepositoryImpl;
 import net.proselyte.test.service.DeveloperService;
 
