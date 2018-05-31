@@ -45,7 +45,6 @@ public class JdbcSkillRepositoryImpl implements SkillRepository {
         }
     }
 
-
     public Skill getById(Long id) {
         try {
             Statement stmt = connection.createStatement();
