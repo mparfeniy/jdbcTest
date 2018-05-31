@@ -9,7 +9,11 @@ import java.util.Collection;
 
 public class DeveloperService {
 
-    private DeveloperRepository developerRepository = new JdbcDeveloperRepositoryImpl();
+    DeveloperRepository developerRepository;
+
+    public DeveloperService() {
+        developerRepository = new JdbcDeveloperRepositoryImpl();
+    }
 
     public void save(Developer developer) {
         this.developerRepository.save(developer);
