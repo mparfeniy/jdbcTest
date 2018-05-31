@@ -14,7 +14,7 @@ public class SkillView {
             skillService = new SkillService();
 
             try {
-                skillService.save(new Skill(1L, "Vasya"));
+                skillService.save(new Skill(1L, "C#"));
                 skillService.getById(2L);
                 skillService.getAll();
                 skillService.delete(1L);

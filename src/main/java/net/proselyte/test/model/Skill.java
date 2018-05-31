@@ -7,7 +7,7 @@ import java.util.Objects;
  *
  * @author Eugene Suleimanov
  */
-public class Skill extends NamedEntity {
+public class Skill extends NamedEntity implements Comparable {
 
     private String name;
 
@@ -47,5 +47,10 @@ public class Skill extends NamedEntity {
     public Skill(Long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return Double.compare(id, ((Skill)o).id);
     }
 }

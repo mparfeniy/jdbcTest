@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * Created by proselyte on 22.05.18.
  */
-public class Developer extends BaseEntity{
+public class Developer extends BaseEntity implements Comparable{
     private String name;
     private Set<Skill> skills;
 
@@ -54,5 +54,10 @@ public class Developer extends BaseEntity{
                 "name='" + name + '\'' +
                 ", skills=" + skills +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return Double.compare(id, ((Developer)o).id);
     }
 }
