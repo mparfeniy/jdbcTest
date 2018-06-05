@@ -9,8 +9,10 @@ public class Main {
     public static void main(String[] args) {
 
         DeveloperView developerView = new DeveloperView();
+        SkillView skillView = new SkillView();
         try {
             developerView.useService();
+            skillView.useService();
         } catch (HibernateException e) {
             e.printStackTrace();
         }

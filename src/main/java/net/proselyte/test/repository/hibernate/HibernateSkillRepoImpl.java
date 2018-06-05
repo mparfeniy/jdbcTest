@@ -1,4 +1,4 @@
-package net.proselyte.test.repository.jdbc;
+package net.proselyte.test.repository.hibernate;
 
 import net.proselyte.test.model.Developer;
 import net.proselyte.test.model.Skill;
@@ -10,59 +10,54 @@ import org.hibernate.Transaction;
 import java.util.List;
 import java.util.Set;
 
-public class HibernateDAO {
+public class HibernateSkillRepoImpl {
 
     private static SessionFactory sessionFactory;
 
-    public static Long addDeveloper(String name, Set<Skill> skills) throws HibernateException {
+    public Long add(String name) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
 
         transaction = session.beginTransaction();
-        Developer developer = new Developer(name, skills);
-        developer.setSkills(skills);
-        Long developerId = (Long)session.save(developer);
+        Skill skill = new Skill(name);
+        Long skillId = (Long)session.save(skill);
         transaction.commit();
         session.close();
-        return developerId;
+        return skillId;
     }
 
-    public static void listDevelopers() {
+    public void list() {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
 
         transaction = session.beginTransaction();
-        List<Developer> developers = session.createQuery("FROM Developer").list();
-        for (Developer developer : developers) {
-            System.out.println(developer);
-            Set<Skill> skills = developer.getSkills();
-            for (Skill project : skills) {
-                System.out.println(project);
-            }
+        List<Skill> skills = session.createQuery("FROM Skill").list();
+        for (Skill skill : skills) {
+            System.out.println(skill);
             System.out.println("\n================\n");
         }
         session.close();
     }
 
-    public static void updateDeveloper(Long developerId, String name) {
+    public void update(Long skillId, String name) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
 
         transaction = session.beginTransaction();
-        Developer developer = session.get(Developer.class, developerId);
-        developer.setName(name);
-        session.update(developer);
+        Skill skill = session.get(Skill.class, skillId);
+        skill.setName(name);
+        session.update(skill);
         transaction.commit();
         session.close();
     }
 
-    public static void removeDeveloper(Long developerId) {
+    public void delete(Long skillId) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
 
         transaction = session.beginTransaction();
-        Developer developer = session.get(Developer.class, developerId);
-        session.delete(developer);
+        Skill skill = session.get(Skill.class, skillId);
+        session.delete(skillId);
         transaction.commit();
         session.close();
     }

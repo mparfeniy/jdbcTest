@@ -1,40 +1,29 @@
 package net.proselyte.test.service;
 
-import net.proselyte.test.model.Skill;
-import net.proselyte.test.repository.SkillRepository;
-import net.proselyte.test.repository.jdbc.JdbcSkillRepositoryImpl;
+import net.proselyte.test.repository.hibernate.HibernateSkillRepoImpl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
-
-/**
- *
- */
 public class SkillService {
-    private SkillRepository skillRepository;
+//    private SkillRepository skillRepository;
+    private HibernateSkillRepoImpl hibernateSkillRepo;
 
     public SkillService() {
-        skillRepository = new JdbcSkillRepositoryImpl();
+        hibernateSkillRepo = new HibernateSkillRepoImpl();
     }
 
-    public void save(Skill skill){
-        this.skillRepository.save(skill);
+    public Long add(String skill) {
+       return this.hibernateSkillRepo.add(skill);
     }
 
-    public Skill getById(Long id) {
-        return this.skillRepository.getById(id);
+    public void list(){
+        this.hibernateSkillRepo.list();
     }
 
-    public Collection<Skill> getAll() throws SQLException {
-        return this.skillRepository.getAll();
+    public void update(Long skillId, String name){
+        this.hibernateSkillRepo.update(skillId, name);
     }
 
-    public void delete(Long id) {
-        this.skillRepository.delete(id);
+    public void delete(Long skillId){
+        this.hibernateSkillRepo.delete(skillId);
     }
 
 }

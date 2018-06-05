@@ -15,36 +15,34 @@ import java.util.TreeSet;
 public class DeveloperView {
 
     private DeveloperService developerService;
-    private JdbcSkillRepositoryImpl jdbcSkillRepository;
     private static SessionFactory sessionFactory;
 
 
     public void useService() throws HibernateException {
         sessionFactory = new Configuration().configure().buildSessionFactory();
         developerService = new DeveloperService();
-        jdbcSkillRepository = new JdbcSkillRepositoryImpl();
 
         Set<Skill> skills = new TreeSet<>();
         skills.add(new Skill(1L, "Ruby"));
         skills.add(new Skill(2L, "Perl"));
 
-        Long developerId1 = developerService.addDeveloper("Michael", skills);
-        Long developerId2 = developerService.addDeveloper("Ivan", skills);
+        Long developerId1 = developerService.add("Michael", skills);
+        Long developerId2 = developerService.add("Ivan", skills);
 
         System.out.println("List of developers");
-        DeveloperService.listDevelopers();
+        developerService.list();
 
         System.out.println("===================================");
         System.out.println("Updating Michael");
-        DeveloperService.updateDeveloper(developerId1, "Misha");
+        developerService.update(developerId1, "Misha");
 
         System.out.println("===================================");
         System.out.println("Deleting Ivan");
-        DeveloperService.removeDeveloper(2L);
+        developerService.remove(developerId2);
 
         System.out.println("Final list of developers");
 
-        DeveloperService.listDevelopers();
+        developerService.list();
         System.out.println("===================================");
         sessionFactory.close();
     }
