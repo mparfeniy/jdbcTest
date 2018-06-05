@@ -1,14 +1,27 @@
 package net.proselyte.test.model;
 
+import org.hibernate.annotations.Entity;
+
+import javax.persistence.Table;
 import java.util.Objects;
 import java.util.Set;
 
 /**
  * Created by proselyte on 22.05.18.
  */
+@Entity
+@Table(name = "developers")
 public class Developer extends BaseEntity implements Comparable{
     private String name;
     private Set<Skill> skills;
+
+    public Developer() {
+    }
+
+    public Developer(String name, Set<Skill> skills) {
+        this.name = name;
+        this.skills = skills;
+    }
 
     public Developer(Long id, String name, Set<Skill> skills) {
         this.id = id;

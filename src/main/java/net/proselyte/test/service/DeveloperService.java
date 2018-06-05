@@ -1,33 +1,38 @@
 package net.proselyte.test.service;
 
 import net.proselyte.test.model.Developer;
+import net.proselyte.test.model.Skill;
 import net.proselyte.test.repository.DeveloperRepository;
+import net.proselyte.test.repository.jdbc.HibernateDAO;
 import net.proselyte.test.repository.jdbc.JdbcDeveloperRepositoryImpl;
+import org.hibernate.HibernateException;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Set;
 
 public class DeveloperService {
 
-    DeveloperRepository developerRepository;
+    static HibernateDAO hibernateDAO;
 
     public DeveloperService() {
-        developerRepository = new JdbcDeveloperRepositoryImpl();
+        hibernateDAO = new HibernateDAO();
     }
 
-    public void save(Developer developer) {
-        this.developerRepository.save(developer);
+    public Long addDeveloper(String name, Set<Skill> skills) throws HibernateException {
+        return HibernateDAO.addDeveloper(name, skills);
     }
 
-    public Developer getById(Long id) {
-        return this.developerRepository.getById(id);
+    public static void listDevelopers(){
+        HibernateDAO.listDevelopers();
     }
 
-    public Collection<Developer> getAll() throws SQLException {
-        return this.developerRepository.getAll();
+    public static void updateDeveloper(Long developerId, String name){
+        HibernateDAO.updateDeveloper(developerId, name);
     }
 
-    public void delete(Long id) {
-        this.developerRepository.delete(id);
+    public static void removeDeveloper(Long developerId){
+        HibernateDAO.removeDeveloper(developerId);
     }
+
 }

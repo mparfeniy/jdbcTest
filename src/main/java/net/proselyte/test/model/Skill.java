@@ -1,5 +1,8 @@
 package net.proselyte.test.model;
 
+import org.hibernate.annotations.Entity;
+
+import javax.persistence.Table;
 import java.util.Objects;
 
 /**
@@ -7,9 +10,14 @@ import java.util.Objects;
  *
  * @author Eugene Suleimanov
  */
+@Entity
+@Table(name = "skills")
 public class Skill extends NamedEntity implements Comparable {
 
     private String name;
+
+    public Skill() {
+    }
 
     @Override
     public String toString() {
@@ -40,6 +48,10 @@ public class Skill extends NamedEntity implements Comparable {
 
     @Override
     public void setName(String name) {
+        this.name = name;
+    }
+
+    public Skill(String name) {
         this.name = name;
     }
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="net.proselyte.test.model.Developer" table="developers">
+        <meta attribute="class-description">
+            This class contains developer details.
+        </meta>
+        <id name="id" type="int" column="id">
+            <generator class="native"/>
+        </id>
+        <set name="skills" cascade="save-update" table="dev_skill">
+            <key column="dev_id" />
+            <many-to-many column="skill_id" class="net.proselyte.test.model.Skill"/>
+        </set>
+        <property name="name" column="name" type="string"/>
+    </class>
+
+    <class name="net.proselyte.test.model.Skill" table="skills">
+        <meta attribute="class-description">
+            This class contains project details.
+        </meta>
+        <id name="id" type="int" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name" type="string"/>
+    </class>
+
+</hibernate-mapping>
