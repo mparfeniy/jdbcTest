@@ -1,8 +1,10 @@
 package net.proselyte.test.service;
 
+import net.proselyte.test.model.Developer;
 import net.proselyte.test.model.Skill;
 import net.proselyte.test.repository.hibernate.HibernateDevRepoImpl;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 
 import java.util.Set;
 
@@ -14,20 +16,24 @@ public class DeveloperService {
         hibernateDevRepo = new HibernateDevRepoImpl();
     }
 
-    public Long add(String name, Set<Skill> skills) throws HibernateException {
-        return this.hibernateDevRepo.save(name, skills);
+    public void save(Developer developer) throws HibernateException {
+        this.hibernateDevRepo.save(developer);
     }
 
-    public void list(){
-        this.hibernateDevRepo.list();
+    public void getById(Long aLong){
+        this.hibernateDevRepo.getById(aLong);
     }
 
-    public void update(Long developerId, String name){
-        this.hibernateDevRepo.update(developerId, name);
+    public void getAll(){
+        this.hibernateDevRepo.getAll();
     }
 
-    public void remove(Long developerId){
+    public void delete(Long developerId){
         this.hibernateDevRepo.delete(developerId);
+    }
+
+    public void closeSessionFactory(){
+        this.hibernateDevRepo.closeSessionFactory();
     }
 
 }

@@ -2,32 +2,46 @@ package net.proselyte.test.repository.hibernate;
 
 import net.proselyte.test.model.Developer;
 import net.proselyte.test.model.Skill;
-import org.hibernate.HibernateException;
+import net.proselyte.test.repository.DeveloperRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class HibernateDevRepoImpl {
+public class HibernateDevRepoImpl implements DeveloperRepository {
 
-    private static SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
-    public Long save(String name, Set<Skill> skills) {
+    @Override
+    public void save(Developer developer) {
         Session session = sessionFactory.openSession();
-        Transaction transaction = null;
+        Transaction transaction;
 
         transaction = session.beginTransaction();
-        Developer developer = new Developer(name, skills);
-        developer.setSkills(skills);
-        Long developerId = (Long)session.save(developer);
+        session.createQuery("INSERT INTO skills VALUES ('" + developer.getName() + "', '"
+                + developer.getSkills() + "')");
         transaction.commit();
         session.close();
-        return developerId;
     }
 
-    public void list() {
+    @Override
+    public Developer getById(Long aLong) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction;
+
+        transaction = session.beginTransaction();
+        Developer developer = session.get(Developer.class, aLong);
+        transaction.commit();
+        session.close();
+        return developer;
+    }
+
+    @Override
+    public Collection<Developer> getAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
 
@@ -41,29 +55,25 @@ public class HibernateDevRepoImpl {
             }
             System.out.println("\n================\n");
         }
-        session.close();
-    }
-
-    public void update(Long developerId, String name) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-
-        transaction = session.beginTransaction();
-        Developer developer = session.get(Developer.class, developerId);
-        developer.setName(name);
-        session.update(developer);
         transaction.commit();
         session.close();
+        return developers;
     }
 
-    public void delete(Long developerId) {
+    @Override
+    public void delete(Long aLong) {
         Session session = sessionFactory.openSession();
-        Transaction transaction = null;
+        Transaction transaction;
 
         transaction = session.beginTransaction();
-        Developer developer = session.get(Developer.class, developerId);
+        Developer developer = session.get(Developer.class, aLong);
         session.delete(developer);
         transaction.commit();
         session.close();
     }
+
+    public void closeSessionFactory(){
+        sessionFactory.close();
+    }
+
 }

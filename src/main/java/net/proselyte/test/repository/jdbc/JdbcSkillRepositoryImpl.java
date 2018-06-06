@@ -17,7 +17,7 @@ import java.util.TreeSet;
  */
 public class JdbcSkillRepositoryImpl implements SkillRepository {
 
-    //TODO: add getting connections logic
+    //TODO: save getting connections logic
     Connection connection = null;
     ConnectionUtil connectionUtil = new ConnectionUtil();
 

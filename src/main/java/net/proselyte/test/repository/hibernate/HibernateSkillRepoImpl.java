@@ -1,32 +1,44 @@
 package net.proselyte.test.repository.hibernate;
 
-import net.proselyte.test.model.Developer;
 import net.proselyte.test.model.Skill;
-import org.hibernate.HibernateException;
+import net.proselyte.test.repository.SkillRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
-public class HibernateSkillRepoImpl {
+public class HibernateSkillRepoImpl implements SkillRepository {
 
-    private static SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
-    public Long add(String name) {
+    @Override
+    public void save(Skill skill) {
         Session session = sessionFactory.openSession();
-        Transaction transaction = null;
+        Transaction transaction;
 
         transaction = session.beginTransaction();
-        Skill skill = new Skill(name);
-        Long skillId = (Long)session.save(skill);
+        session.save(skill);
         transaction.commit();
         session.close();
-        return skillId;
     }
 
-    public void list() {
+    @Override
+    public Skill getById(Long aLong) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction;
+
+        transaction = session.beginTransaction();
+        Skill skill = session.get(Skill.class, aLong);
+        transaction.commit();
+        session.close();
+        return skill;
+    }
+
+    @Override
+    public Collection<Skill> getAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
 
@@ -36,29 +48,21 @@ public class HibernateSkillRepoImpl {
             System.out.println(skill);
             System.out.println("\n================\n");
         }
+        transaction.commit();
         session.close();
+        return skills;
     }
 
-    public void update(Long skillId, String name) {
+    @Override
+    public void delete(Long aLong) {
         Session session = sessionFactory.openSession();
-        Transaction transaction = null;
+        Transaction transaction;
 
         transaction = session.beginTransaction();
-        Skill skill = session.get(Skill.class, skillId);
-        skill.setName(name);
-        session.update(skill);
+        Skill skill = session.get(Skill.class, aLong);
+        session.delete(skill);
         transaction.commit();
         session.close();
     }
 
-    public void delete(Long skillId) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-
-        transaction = session.beginTransaction();
-        Skill skill = session.get(Skill.class, skillId);
-        session.delete(skillId);
-        transaction.commit();
-        session.close();
-    }
 }

@@ -1,5 +1,6 @@
 package net.proselyte.test.service;
 
+import net.proselyte.test.model.Skill;
 import net.proselyte.test.repository.hibernate.HibernateSkillRepoImpl;
 
 public class SkillService {
@@ -10,16 +11,16 @@ public class SkillService {
         hibernateSkillRepo = new HibernateSkillRepoImpl();
     }
 
-    public Long add(String skill) {
-       return this.hibernateSkillRepo.add(skill);
+    public void save(Skill skill) {
+       this.hibernateSkillRepo.save(skill);
     }
 
-    public void list(){
-        this.hibernateSkillRepo.list();
+    public void getAll(){
+        this.hibernateSkillRepo.getAll();
     }
 
-    public void update(Long skillId, String name){
-        this.hibernateSkillRepo.update(skillId, name);
+    public void getById(Long aLong){
+        this.hibernateSkillRepo.getById(aLong);
     }
 
     public void delete(Long skillId){
