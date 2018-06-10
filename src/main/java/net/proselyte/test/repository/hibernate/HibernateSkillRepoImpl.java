@@ -12,13 +12,17 @@ import java.util.List;
 
 public class HibernateSkillRepoImpl implements SkillRepository {
 
-    private static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+    private static SessionFactory sessionFactory;
+    private Transaction transaction;
+
+    public HibernateSkillRepoImpl() {
+        sessionFactory = new Configuration().configure().buildSessionFactory();
+    }
 
     @Override
     public void save(Skill skill) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction;
 
+        Session session = sessionFactory.openSession();
         transaction = session.beginTransaction();
         session.save(skill);
         transaction.commit();
@@ -28,8 +32,6 @@ public class HibernateSkillRepoImpl implements SkillRepository {
     @Override
     public Skill getById(Long aLong) {
         Session session = sessionFactory.openSession();
-        Transaction transaction;
-
         transaction = session.beginTransaction();
         Skill skill = session.get(Skill.class, aLong);
         transaction.commit();
@@ -40,14 +42,8 @@ public class HibernateSkillRepoImpl implements SkillRepository {
     @Override
     public Collection<Skill> getAll() {
         Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-
         transaction = session.beginTransaction();
-        List<Skill> skills = session.createQuery("FROM Skill").list();
-        for (Skill skill : skills) {
-            System.out.println(skill);
-            System.out.println("\n================\n");
-        }
+        List<Skill> skills = session.createCriteria(Skill.class).list();
         transaction.commit();
         session.close();
         return skills;
@@ -56,8 +52,6 @@ public class HibernateSkillRepoImpl implements SkillRepository {
     @Override
     public void delete(Long aLong) {
         Session session = sessionFactory.openSession();
-        Transaction transaction;
-
         transaction = session.beginTransaction();
         Skill skill = session.get(Skill.class, aLong);
         session.delete(skill);

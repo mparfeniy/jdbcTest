@@ -24,7 +24,6 @@ public class DeveloperView {
         skills.add(new Skill(1L, "Ruby"));
         skills.add(new Skill(2L, "Perl"));
 
-
         developerService.save(new Developer("Michael", skills));
         developerService.save(new Developer("Ivan", skills));
 

@@ -2,6 +2,7 @@ package net.proselyte.test.model;
 
 import org.hibernate.annotations.Entity;
 
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.Objects;
 import java.util.Set;
@@ -37,6 +38,7 @@ public class Developer extends BaseEntity implements Comparable{
         this.name = name;
     }
 
+    @ManyToMany
     public Set<Skill> getSkills() {
         return skills;
     }

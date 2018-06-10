@@ -1,7 +1,6 @@
 package net.proselyte.test.repository.hibernate;
 
 import net.proselyte.test.model.Developer;
-import net.proselyte.test.model.Skill;
 import net.proselyte.test.repository.DeveloperRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,11 +9,14 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 public class HibernateDevRepoImpl implements DeveloperRepository {
 
-    private static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+    private static SessionFactory sessionFactory;
+
+    public HibernateDevRepoImpl() {
+        sessionFactory = new Configuration().configure().buildSessionFactory();
+    }
 
     @Override
     public void save(Developer developer) {
@@ -22,8 +24,7 @@ public class HibernateDevRepoImpl implements DeveloperRepository {
         Transaction transaction;
 
         transaction = session.beginTransaction();
-        session.createQuery("INSERT INTO skills VALUES ('" + developer.getName() + "', '"
-                + developer.getSkills() + "')");
+        session.save(developer);
         transaction.commit();
         session.close();
     }
@@ -43,18 +44,11 @@ public class HibernateDevRepoImpl implements DeveloperRepository {
     @Override
     public Collection<Developer> getAll() {
         Session session = sessionFactory.openSession();
-        Transaction transaction = null;
+        Transaction transaction;
 
         transaction = session.beginTransaction();
-        List<Developer> developers = session.createQuery("FROM Developer").list();
-        for (Developer developer : developers) {
-            System.out.println(developer);
-            Set<Skill> skills = developer.getSkills();
-            for (Skill project : skills) {
-                System.out.println(project);
-            }
-            System.out.println("\n================\n");
-        }
+        List<Developer> developers = session.createCriteria(Developer.class).list();
+
         transaction.commit();
         session.close();
         return developers;
