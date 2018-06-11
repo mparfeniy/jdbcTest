@@ -22,7 +22,6 @@ public class HibernateDevRepoImpl implements DeveloperRepository {
     public void save(Developer developer) {
         Session session = sessionFactory.openSession();
         Transaction transaction;
-
         transaction = session.beginTransaction();
         session.save(developer);
         transaction.commit();
@@ -47,7 +46,7 @@ public class HibernateDevRepoImpl implements DeveloperRepository {
         Transaction transaction;
 
         transaction = session.beginTransaction();
-        List<Developer> developers = session.createCriteria(Developer.class).list();
+        List<Developer> developers = session.createQuery("FROM Developer").list();
 
         transaction.commit();
         session.close();

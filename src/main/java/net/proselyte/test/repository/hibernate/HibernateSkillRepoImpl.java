@@ -43,7 +43,7 @@ public class HibernateSkillRepoImpl implements SkillRepository {
     public Collection<Skill> getAll() {
         Session session = sessionFactory.openSession();
         transaction = session.beginTransaction();
-        List<Skill> skills = session.createCriteria(Skill.class).list();
+        List skills = session.createQuery("FROM Skill").list();
         transaction.commit();
         session.close();
         return skills;
@@ -58,5 +58,4 @@ public class HibernateSkillRepoImpl implements SkillRepository {
         transaction.commit();
         session.close();
     }
-
 }
